@@ -11,9 +11,12 @@ Sistema simples de controle de caixa para uma pequena empresa, capaz de registra
 - Exibir Relatório do Caixa: Listar todas as movimentações (entradas e saídas) com suas descrições.
 - Mostrar o saldo final do dia e/ou período selecionado.
 
-⚙️ Linguagem e Ferramentas
+# ⚙️ Linguagem e Ferramentas
 - JavaScript para lógica
-- LocalStorage para persistência (?)
+- LocalStorage como persistência
 - Bootstrap e HTML para front-end
 
-# Exemplo de uso (com simulação de entradas e saídas) com print da tela com a execução do programa
+# Exemplo de uso 
+
+- TODO: simulação de entradas e saídas
+- TODO: print da tela com a execução do programa
