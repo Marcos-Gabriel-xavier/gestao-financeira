@@ -13,7 +13,8 @@ formImportar.addEventListener("submit", function (e) {
 
   reader.onload = function (e) {
     const conteudo = e.target.result;
-    gerenciadorTransacoes.transacoes = JSON.parse(conteudo);
+    const listaTransacoes = JSON.parse(conteudo);
+    gerenciadorTransacoes.transacoes = Array.isArray(listaTransacoes) ? listaTransacoes : [];
     gerenciadorTransacoes.salvar();
   };
 
