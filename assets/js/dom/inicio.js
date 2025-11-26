@@ -3,7 +3,6 @@ import { exportTableToXLS } from './exportacao-xls.js';
 
 const gerenciador = new GerenciadorTransacoes();
 const transacoes = gerenciador.transacoes;
-
 const selects = document.querySelectorAll(".select");
 const selectSeparador = document.getElementById("selectSeparador");
 const selectAgrupar = document.getElementById("selectAgrupar");
@@ -11,10 +10,9 @@ const selectOrdenar = document.getElementById("selectOrdenar");
 const selectOrdem = document.getElementById("selectOrdem");
 
 selects.forEach(sel => sel.addEventListener("change", criarTabelas));
-
 const extrair = {
-  dia:   (t) => t.data,
-  mes:   (t) => t.data.substring(0, 7),
+  dia:   (t) => `${t.data.substring(8)}/${t.data.substring(5,7)}/${t.data.substring(0,4)}`,
+  mes:   (t) => `${t.data.substring(5,7)}/${t.data.substring(0,4)}`,
   ano:   (t) => t.data.substring(0, 4)
 };
 
@@ -82,6 +80,7 @@ function ordenar(mapAgrupado) {
   const transacoes = [...mapAgrupado.entries()];
 
   transacoes.sort(([a], [b]) => a.localeCompare(b));
+  
   transacoes.forEach(([_, lista]) => {
     lista.sort((a, b) => {
       if (tipo === "data") return a.data.localeCompare(b.data);
@@ -113,7 +112,7 @@ function criarTabela(lista) {
   lista.forEach((transacao) => {
     const linha = document.createElement("tr");
     linha.innerHTML = `
-      <td>${transacao.data}</td>
+      <td>${extrair.dia(transacao)}</td>
       <td>${transacao.descricao}</td>
       <td>${retornarValorCorrigido(transacao).toFixed(2)}</td>
     `;
