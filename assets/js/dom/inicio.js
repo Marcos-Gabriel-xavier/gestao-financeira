@@ -1,4 +1,5 @@
 import { GerenciadorTransacoes } from "../model/GerenciadorTransacoes.js";
+import { exportTableToXLS } from './exportacao-xls.js';
 
 const gerenciador = new GerenciadorTransacoes();
 const transacoes = gerenciador.transacoes;
@@ -168,8 +169,17 @@ function criarTabelas() {
       window.print();
     };
 
+    const botaoXLS = document.createElement("button");
+
+    botaoXLS.className = "btn btn-primary mb-3 ms-2";
+    botaoXLS.innerText = "Exportar XLS";
+    botaoXLS.onclick = () => {
+      exportTableToXLS("transacoes.xls");
+    };
+
     bloco.appendChild(titulo);
     bloco.appendChild(botao);
+    bloco.appendChild(botaoXLS);
     bloco.appendChild(tabela);
 
     container.appendChild(bloco);
