@@ -161,14 +161,15 @@ function criarTabelas() {
     const tabela = criarTabela(lista);
 
     // --- botão de impressão ---
-    const botao = document.createElement("button");
+    const botaoImprimir = document.createElement("button");
 
-    botao.className = "btn btn-primary mb-3";
-    botao.innerText = "Imprimir";
-    botao.onclick = () => {
+    botaoImprimir.className = "btn btn-primary mb-3";
+    botaoImprimir.innerText = "Imprimir";
+    botaoImprimir.onclick = () => {
       window.print();
     };
 
+    // --- botão de exportação XLS ---
     const botaoXLS = document.createElement("button");
 
     botaoXLS.className = "btn btn-primary mb-3 ms-2";
@@ -177,9 +178,20 @@ function criarTabelas() {
       exportTableToXLS("transacoes.xls");
     };
 
+    // --- botão de limpar ---
+    const botaoLimpar = document.createElement("button");
+
+    botaoLimpar.className = "btn btn-primary mb-3 ms-2";
+    botaoLimpar.innerText = "Limpar registros";
+    botaoLimpar.onclick = () => {
+      localStorage.clear();
+      window.location.reload();
+    };
+
     bloco.appendChild(titulo);
-    bloco.appendChild(botao);
+    bloco.appendChild(botaoImprimir);
     bloco.appendChild(botaoXLS);
+    bloco.appendChild(botaoLimpar);
     bloco.appendChild(tabela);
 
     container.appendChild(bloco);
