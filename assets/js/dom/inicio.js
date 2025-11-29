@@ -10,11 +10,17 @@ const selectOrdenar = document.getElementById("selectOrdenar");
 const selectOrdem = document.getElementById("selectOrdem");
 
 selects.forEach(sel => sel.addEventListener("change", criarTabelas));
-const extrair = {
-  dia:   (t) => `${t.data.substring(8)}/${t.data.substring(5,7)}/${t.data.substring(0,4)}`,
-  mes:   (t) => `${t.data.substring(5,7)}/${t.data.substring(0,4)}`,
+const extrair = { 
+  dia:   (t) => `${t.data}`,
+  mes:   (t) => `${t.data.substring(0,7)}`,
   ano:   (t) => t.data.substring(0, 4)
 };
+
+const converter = {
+  dia:   (d) => `${d.substring(8)}/${d.substring(5,7)}/${d.substring(0,4)}`,
+  mes:   (d) => `${d.substring(5,7)}/${d.substring(0,4)}`,
+  ano:   (d) => d
+}
 
 function retornarValorCorrigido(t) {
   return t.tipo === "entrada" ? t.valor : -t.valor;
@@ -58,7 +64,7 @@ function agrupar(mapSeparado) {
         const novaTransacao = {
           ...transacao,
           data: chave,
-          descricao: `Saldo do ${tipo} ${chave}`,
+          descricao: `Saldo do ${tipo} ${converter[tipo](chave)}`,
           valor: Math.abs(soma),
           tipo: soma >= 0 ? "entrada" : "saida"
         };
@@ -112,7 +118,7 @@ function criarTabela(lista) {
   lista.forEach((transacao) => {
     const linha = document.createElement("tr");
     linha.innerHTML = `
-      <td>${extrair.dia(transacao)}</td>
+      <td>${converter[selectAgrupar.value === "semAgrupar" ? "dia" : selectAgrupar.value](transacao.data)}</td>
       <td>${transacao.descricao}</td>
       <td>${retornarValorCorrigido(transacao).toFixed(2)}</td>
     `;
@@ -158,7 +164,7 @@ function criarTabelas() {
     topo.className = "d-flex justify-content-between align-items-center pt-3";
 
     const titulo = document.createElement("h2");
-    titulo.innerText = chave || "Todas as transações";
+    titulo.innerText = chave ? converter[selectSeparador.value](chave) : "Todas as transações";
 
     const areaBotoes = document.createElement("div");
     areaBotoes.className = "d-flex"; 
